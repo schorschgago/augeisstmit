@@ -1,61 +1,340 @@
-body{
-    font-family: "program-narrow", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+/* Allgemeine Stile */
+body {
+    font-family: 'Inter', sans-serif; /* Verwendung von Inter als Fallback */
+    background-color: #f9db9b; /* Hintergrundfarbe (aus CD: Hex #f9db9b) */
+    color: #333; /* Textfarbe (dunkles Grau) */
+    line-height: 1.6;
+    margin: 0;
     padding: 0;
-    background-color: #f8f8f8;
-    color: #333;
+    scroll-behavior: smooth; /* Sanftes Scrollen zu Anker-Links */
 }
 
-header {
-    background-color: #f7c85d;
-    color: #b31b1b;
-    padding: 1rem;
-    text-align: center;
+/* Header und Navigation */
+.header {
+    background-color: #fff; /* Hintergrundfarbe Header (Weiß) */
+    padding: 1rem 2rem; /* Padding angepasst */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Stärkerer Schatten */
+    position: sticky; /* Header fixieren */
+    top: 0; /* Am oberen Rand positionieren */
+    z-index: 10; /* Sicherstellen, dass der Header über anderem Inhalt liegt */
+    display: flex; /* Flexbox für Layout */
+    justify-content: space-between; /* Logo links, Navigation rechts */
+    align-items: center; /* Vertikal zentrieren */
+    flex-wrap: wrap; /* Umbruch auf kleineren Bildschirmen erlauben */
 }
 
-nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 1rem 0 0 0;
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
+.logo-img { /* Klasse für das Logo-Bild */
+    height: 45px; /* Beispielhöhe für das Logo angepasst */
+    width: auto; /* Breite automatisch anpassen */
+    display: block; /* Verhindert zusätzlichen Platz unter dem Bild */
+    margin-right: 2rem; /* Abstand rechts vom Logo */
 }
 
-nav a {
+.nav {
+    display: flex; /* Navigationslinks nebeneinander */
+    flex-wrap: wrap; /* Umbruch auf kleineren Bildschirmen erlauben */
+    justify-content: center; /* Links zentrieren auf kleineren Bildschirmen */
+     /* Abstand oben, wenn Navigation umbricht */
+    margin-top: 0;
+}
+
+.nav a {
+    margin-left: 1.5rem; /* Abstand zwischen Navigationslinks angepasst */
+    color: #919191; /* Navigationslink Farbe (aus CD: Hex #919191) */
     text-decoration: none;
-    color: #8f0000;
-    font-weight: bold;
+    transition: color 0.3s ease, transform 0.2s ease; /* Übergänge */
+    font-size: 0.95rem; /* Schriftgröße angepasst */
+    font-weight: 600; /* Mittlere Schriftstärke */
+    padding: 0.5rem 0; /* Kleines Padding oben/unten für Klickbereich */
+    position: relative; /* Für den Unterstrich-Effekt */
 }
 
-nav a:hover {
-    text-decoration: underline;
+.nav a:first-child {
+    margin-left: 0; /* Kein linker Abstand für das erste Element */
 }
 
-main {
-    padding: 2rem;
-    text-align: center;
-    background-color: #f9db9b;
+.nav a:hover {
+    color: #b31b1b; /* Navigationslink Hover Farbe (aus CD: Hex #b31b1b) */
+    transform: translateY(-2px); /* Leicht nach oben bewegen bei Hover */
 }
 
+ /* Unterstrich-Effekt bei Hover */
+.nav a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #b31b1b; /* Farbe des Unterstrichs */
+    transform: scaleX(0); /* Standardmäßig unsichtbar */
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+.nav a:hover::after {
+    transform: scaleX(1); /* Bei Hover sichtbar */
+    transform-origin: bottom left;
+}
+
+
+/* Galerie */
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Mindestbreite der Spalten erhöht */
+    gap: 2.5rem; /* Größerer Abstand zwischen den Bildern */
+    padding: 4rem 2rem; /* Mehr Padding */
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.gallery img, .moodboard img {
+.photo-item {
+    background-color: #fff; /* Hintergrundfarbe Foto-Element (Weiß) */
+    border-radius: 12px; /* Stärkere Abrundung */
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15); /* Stärkerer Schatten */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Übergänge für Hover-Effekte */
+    cursor: pointer; /* Mauszeiger als Hand, um Klickbarkeit anzuzeigen */
+}
+
+.photo-item:hover {
+    transform: translateY(-10px); /* Etwas stärker nach oben bewegen bei Hover */
+    box-shadow: 0 15px 25px rgba(0,0,0,0.25); /* Stärkerer Schatten bei Hover */
+}
+
+/* Alternating hover effect */
+.photo-item:nth-child(odd):hover .photo-info {
+    background-color: #b31b1b; /* Hintergrundfarbe Info-Bereich ungerade Elemente bei Hover (aus CD: Hex #b31b1b) */
+    color: #fff; /* Textfarbe weiß bei Hover */
+}
+
+.photo-item:nth-child(odd):hover .photo-info p {
+    color: #eee; /* Textfarbe technische Details heller bei Hover */
+}
+
+.photo-item:nth-child(even):hover .photo-info {
+    background-color: #b31b1b; /* Hintergrundfarbe Info-Bereich gerade Elemente bei Hover (aus CD: Hex #b31b1b) */
+    color: #fff; /* Textfarbe weiß bei Hover */
+}
+
+.photo-item:nth-child(even):hover .photo-info p {
+    color: #eee; /* Textfarbe technische Details heller bei Hover */
+}
+
+
+.photo-item img {
     width: 100%;
+    height: 280px; /* Feste Höhe für Konsistenz angepasst */
+    object-fit: cover; /* Bildabdeckung */
+}
+
+.photo-info {
+    padding: 1.5rem; /* Mehr Padding */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Übergänge für Hintergrundfarbe und Textfarbe */
+}
+
+.photo-info h3 {
+    margin-top: 0;
+    margin-bottom: 0.8rem; /* Abstand angepasst */
+    font-size: 1.4rem; /* Schriftgröße angepasst */
+    font-weight: 700; /* Kräftiger */
+}
+
+.photo-info p {
+    font-size: 1rem; /* Schriftgröße angepasst */
+    color: #555; /* Farbe für technische Details (dunkleres Grau) */
+    margin-bottom: 0.4rem; /* Abstand angepasst */
+}
+
+/* Abschnitte */
+.section {
+    padding: 6rem 2rem; /* Mehr Padding für Abschnitte */
+    max-width: 1200px;
+    margin: 2.5rem auto; /* Abstand zwischen Abschnitten angepasst */
+    background-color: #fff; /* Hintergrundfarbe Abschnitte (Weiß) */
+    border-radius: 12px; /* Stärkere Abrundung */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15); /* Stärkerer Schatten */
+}
+
+.section h2 {
+    font-size: 2.8rem; /* Größere Schrift für Abschnittsüberschriften */
+    font-weight: 700; /* Kräftigere Schrift */
+    margin-bottom: 2.5rem; /* Mehr Abstand */
+    border-bottom: 3px solid #8f0000; /* Dickere Trennlinie (aus CD: Hex #8f0000) */
+    padding-bottom: 1rem; /* Padding angepasst */
+    color: #919191; /* Farbe Abschnittsüberschrift (aus CD: Hex #919191) */
+}
+
+/* Footer */
+.footer {
+    background-color: #333; /* Hintergrundfarbe Footer (dunkles Grau) */
+    color: #fff; /* Textfarbe Footer (Weiß) */
+    text-align: center;
+    padding: 2.5rem; /* Mehr Padding */
+    margin-top: 4rem; /* Mehr Abstand */
+}
+
+.section a {
+    color: #b31b1b; /* Farbe Links in Abschnitten (aus CD: Hex #b31b1b) */
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: 500; /* Mittlere Schriftstärke */
+}
+
+.section a:hover {
+    color: #961414; /* Farbe Links in Abschnitten bei Hover (etwas dunkler als #b31b1b) */
+    text-decoration: underline; /* Unterstreichung bei Hover */
+}
+
+.moodboard-img {
+    max-width: 100%;
     height: auto;
     border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 1.5rem; /* Abstand angepasst */
 }
 
-footer {
-    background-color: #f7c85d;
-    color: #8f0000;
+.zeitplan-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem; /* Abstand angepasst */
+}
+
+.zeitplan-list li {
+    background-color: #fff; /* Hintergrundfarbe Zeitplan-Liste (Weiß) */
+    padding: 1.5rem; /* Mehr Padding */
+    margin-bottom: 1rem; /* Mehr Abstand */
+    border-radius: 8px; /* Abrundung angepasst */
+    border: 1px solid #eee; /* Leichter Rand */
+}
+
+.zeitplan-list li strong {
+     color: #8f0000; /* Farbe aus CD */
+     font-weight: 700; /* Kräftiger */
+}
+
+.video-placeholder {
+    background-color: #333; /* Dunkler Hintergrund für Video-Platzhalter */
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 450px; /* Beispielhöhe für Video angepasst */
+    border-radius: 8px;
     text-align: center;
-    padding: 3rem;
-    
+    font-size: 1.4rem;
+}
+
+.journal-entry {
+    background-color: #f8f8f8; /* Leicht grauer Hintergrund für Journaleinträge */
+    padding: 2.5rem; /* Mehr Padding */
+    margin-bottom: 2.5rem; /* Mehr Abstand */
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.journal-entry h3 {
+    margin-top: 0;
+    margin-bottom: 1.2rem; /* Mehr Abstand */
+    color: #b31b1b; /* Farbe aus CD */
+    font-size: 1.6rem; /* Schriftgröße angepasst */
+    font-weight: 700;
+}
+
+.journal-entry p {
+    font-size: 1.1rem;
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Standardmäßig ausgeblendet */
+    position: fixed; /* Fixierte Position */
+    z-index: 20; /* Über allem anderen Inhalt */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Scrollen ermöglichen, falls Bild zu groß */
+    background-color: rgba(0, 0, 0, 0.8); /* Schwarzer Hintergrund mit Transparenz */
+    align-items: center; /* Vertikal zentrieren */
+    justify-content: center; /* Horizontal zentrieren */
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 95%; /* Maximale Breite des Bildes angepasst */
+    max-height: 95%; /* Maximale Höhe des Bildes angepasst */
+    object-fit: contain; /* Bildgröße anpassen, während das Seitenverhältnis erhalten bleibt */
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+ /* Responsive Anpassungen */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        padding: 1rem;
+    }
+    .nav {
+        margin-top: 1rem;
+    }
+    .nav a {
+        margin-left: 0.8rem; /* Abstand auf kleineren Bildschirmen reduziert */
+        margin-right: 0.8rem; /* Abstand auch rechts */
+        font-size: 0.85rem; /* Schriftgröße auf kleineren Bildschirmen reduziert */
+    }
+    .gallery {
+        padding: 1.5rem;
+        gap: 1rem;
+    }
+    .photo-item img {
+         height: 200px; /* Höhe auf kleineren Bildschirmen anpassen */
+    }
+    .section {
+        padding: 3rem 1.5rem;
+        margin-top: 1.5rem;
+    }
+    .section h2 {
+        font-size: 2rem;
+    }
+     .video-placeholder {
+        height: 250px; /* Höhe auf kleineren Bildschirmen anpassen */
+     }
+     .journal-entry {
+         padding: 1.5rem;
+         margin-bottom: 1.5rem;
+     }
+     .journal-entry h3 {
+         font-size: 1.2rem;
+     }
+     .modal-content {
+        width: 100%; /* Bildbreite auf kleineren Bildschirmen anpassen */
+        max-width: 100%;
+        max-height: 80%; /* Höhe anpassen */
+     }
+     .close {
+         top: 10px;
+         right: 20px;
+         font-size: 30px;
+     }
 }
